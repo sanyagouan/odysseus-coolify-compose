@@ -131,7 +131,7 @@ services:
     # not copy arbitrary repo files into the application checkout directory).
     volumes:
       - searxng-data:/etc/searxng
-      - searxng-settings:/tmp/searxng-settings:ro
+      - searxng-settings:/tmp/searxng-settings
     environment:
       - SEARXNG_BASE_URL=http://localhost:8080/
       - SEARXNG_SECRET=${SEARXNG_SECRET:-}
