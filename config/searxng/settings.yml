@@ -1,5 +1,7 @@
 use_default_settings: true
 
+default_doi_resolver: "https://doi.org"
+
 server:
   secret_key: "__SEARXNG_SECRET__"
 
