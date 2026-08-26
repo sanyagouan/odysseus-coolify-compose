@@ -73,6 +73,22 @@ services:
       # Find yours with:  id -u  /  id -g
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
+    # Explicit Traefik labels so the declared FQDN (odysseus.mitinteriorismo.studio)
+    # resolves to this container's internal port 7000. Coolify v4 with
+    # build_pack=dockercompose does not generate these automatically from
+    # docker_compose_domains, so we add them here. The router UUID created by
+    # Coolify (ndkde7w20au0sevhqghsmdah.mitinteriorismo.studio) continues to
+    # exist in parallel. The docker network must match the one the container is
+    # actually attached to (ndkde7w20au0sevhqghsmdah_default); the coolify-proxy
+    # is already on that network.
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=ndkde7w20au0sevhqghsmdah_default"
+      - "traefik.http.routers.odysseus-fqdn-ndkde7w.entrypoints=https"
+      - "traefik.http.routers.odysseus-fqdn-ndkde7w.rule=Host(`odysseus.mitinteriorismo.studio`)"
+      - "traefik.http.routers.odysseus-fqdn-ndkde7w.tls=true"
+      - "traefik.http.routers.odysseus-fqdn-ndkde7w.tls.certresolver=letsencrypt"
+      - "traefik.http.services.odysseus-fqdn-ndkde7w.loadbalancer.server.port=7000"
     depends_on:
       searxng:
         condition: service_healthy
