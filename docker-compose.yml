@@ -110,8 +110,9 @@ services:
           sed "s|__SEARXNG_SECRET__|$$secret|g" /tmp/searxng-settings.yml.template > /etc/searxng/settings.yml
         fi
         exec /usr/local/searxng/entrypoint.sh
-    ports:
-      - "127.0.0.1:8080:8080"
+    # Coolify compatibility override:
+    # Host port mapping removed because port 8080 is reserved by the Coolify proxy.
+    # SearXNG remains available internally at http://searxng:8080.
     volumes:
       - searxng-data:/etc/searxng
       - ./config/searxng/settings.yml:/tmp/searxng-settings.yml.template:ro,z
