@@ -116,7 +116,7 @@ services:
           formats:
             - html
             - json
-        default_doi_resolver: "https://doi.org"
+        default_doi_resolver: "oadoi.org"
         SETTINGS_EOF
           sed -i "s|SEARXNG_SECRET|$${secret}|g" /tmp/searxng-settings/settings.yml
         fi
