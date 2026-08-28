@@ -38,7 +38,7 @@ python-dateutil
 caldav
 cryptography
 bcrypt
-mcp
+mcp<2  # pin: mcp 2.x elimina la API low-level Server.list_tools que usan los mcp_servers/ built-in (rotura 26-ago-2026)
 pyotp
 qrcode[pil]
 croniter
